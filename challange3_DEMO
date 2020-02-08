@@ -1,0 +1,22 @@
+var obj = {a:{b:{c:1, d:2}}};
+console.log("obj is:", JSON.stringify(obj));
+
+var objHyper = hyperIndexOf(obj);
+console.log("(proxy override get) objHyper['a.b.c'] is:", objHyper['a.b.c']);
+objHyper['a.b.c'] = 3;
+console.log("(proxy override set) objHyper['a.b.c']=3, now obj is:", JSON.stringify(obj));
+
+console.log("(behind the scenes) objHyper is:", objHyper);
+
+if (!({}).H)
+    Object.defineProperties(Object.prototype, {
+        H: {
+            get: function() {
+                return hyperIndexOf(this); // TODO:cache as a non-enumerable property for efficiency?
+            }
+        }
+    });
+
+console.log("(shortcut) obj.H['a.b.c']=4");
+obj.H['a.b.c'] = 4;
+console.log("(shortcut) obj.H['a.b.c'] is obj['a']['b']['c'] is", obj.H['a.b.c']);

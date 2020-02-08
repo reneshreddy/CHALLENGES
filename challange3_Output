@@ -1,0 +1,7 @@
+Output:
+obj is: {"a":{"b":{"c":1,"d":2}}}
+(proxy override get) objHyper['a.b.c'] is: 1
+(proxy override set) objHyper['a.b.c']=3, now obj is: {"a":{"b":{"c":3,"d":2}}}
+(behind the scenes) objHyper is: Proxy {a: {…}}
+(shortcut) obj.H['a.b.c']=4
+(shortcut) obj.H['a.b.c'] is obj['a']['b']['c'] is: 4
